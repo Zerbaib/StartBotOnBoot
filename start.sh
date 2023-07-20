@@ -35,6 +35,7 @@ start_bot() {
 start_bot "StatusBot"
 start_bot "ZerbaibDiscordBot"
 start_bot "BetaZerbaibDiscordBot"
+start_bot "TicketManager"
 start_bot "Nexus"
 start_bot "Shelly"
 start_bot "CCrapper"
