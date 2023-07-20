@@ -27,6 +27,7 @@ declare -A bot_main=(
 start_bot() {
     bot_name=$1
     bot_path=${bot_paths["$bot_name"]}
+    bot_main=${bot_main["$bot_name"]}
     screen -dmS "$bot_name" bash -c "cd $bot_path && python $bot_main"
 }
 
