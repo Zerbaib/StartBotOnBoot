@@ -1,29 +1,21 @@
 #!/bin/bash
 
-screen -dmS BetaZerbaibBot bash -c "cd /home/pi/zerbaib/ && python bzb.py"
-sleep 1
-screen -x BetaZerbaibBot -X stuff $'\n'
+# Fonction pour lancer un bot dans une session screen
+start_bot() {
+    local session_name=$1
+    local working_dir=$2
+    local python_script=$3
 
-screen -dmS StatusBot bash -c "cd /home/pi/zerbaib/StatusBot && python main.py"
-sleep 1
-screen -x StatusBot -X stuff $'\n'
+    screen -dmS "$session_name" bash -c "cd $working_dir && python $python_script"
+    sleep 1
+    screen -S "$session_name" -X stuff $'\n'
+}
 
-screen -dmS TicketBot bash -c "cd /home/pi/zerbaib/TicketDiscordBot && python main.py"
-sleep 1
-screen -x TicketBot -X stuff $'\n'
-
-screen -dmS ZerbaibBot bash -c "cd /home/pi/zerbaib/ZerbaibDiscordBot && python main.py"
-sleep 1
-screen -x ZerbaibBot -X stuff $'\n'
-
-screen -dmS Shelly bash -c "cd /home/pi/anito/bot && python shelly.py"
-sleep 1
-screen -x Shelly -X stuff $'\n'
-
-screen -dmS CCrapper bash -c "cd /home/pi/anito/ && python ccraper.py"
-sleep 1
-screen -x CCrapper -X stuff $'\n'
-
-screen -dmS Nexus bash -c "cd /home/pi/nexus/ && python main.py"
-sleep 1
-screen -x Nexus -X stuff $'\n'
+# Lancer chaque bot dans une session screen unique
+start_bot "BetaZerbaibBot" "/home/pi/zerbaib/" "bzb.py"
+start_bot "StatusBot" "/home/pi/zerbaib/StatusDiscordBot" "main.py"
+start_bot "TicketBot" "/home/pi/zerbaib/TicketDiscordBot" "main.py"
+start_bot "ZerbaibBot" "/home/pi/zerbaib/ZerbaibDiscordBot" "main.py"
+start_bot "Shelly" "/home/pi/anito/bot" "shelly.py"
+start_bot "CCrapper" "/home/pi/anito/" "ccraper.py"
+start_bot "Nexus" "/home/pi/nexus/" "main.py"
